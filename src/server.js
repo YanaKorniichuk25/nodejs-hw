@@ -27,7 +27,7 @@ const start = async () => {
     app.use(cors());
     app.use(express.json());
 
-    app.use('/notes', notesRouter);
+    app.use(notesRouter);
 
     app.use(notFoundHandler);
     app.use(errorHandler);
