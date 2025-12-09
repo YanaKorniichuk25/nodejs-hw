@@ -15,16 +15,10 @@ dotenv.config();
 
 const app = express();
 const PORT = process.env.PORT ?? 3000;
-const MONGO_URL = process.env.MONGO_URL;
-
-if (!MONGO_URL) {
-  console.error('MONGO_URL is not set');
-  process.exit(1);
-}
 
 const start = async () => {
   try {
-    await connectMongoDB(MONGO_URL);
+    await connectMongoDB(process.env.MONGO_URL);
 
     app.use(logger);
     app.use(cors({ origin: true, credentials: true }));
@@ -37,11 +31,10 @@ const start = async () => {
     app.use(celebrateErrors());
     app.use(notFoundHandler);
     app.use(errorHandler);
-    app.listen(PORT, () => {
-      console.log(`Server is running on port ${PORT}`);
-    });
+
+    app.listen(PORT, () => console.log(`Server running on ${PORT}`));
   } catch (err) {
-    console.error('Failed to start server:', err);
+    console.error(err);
     process.exit(1);
   }
 };

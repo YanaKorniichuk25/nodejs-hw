@@ -1,6 +1,5 @@
 import { Router } from 'express';
 import { celebrate } from 'celebrate';
-
 import * as authController from '../controllers/authController.js';
 import {
   registerUserSchema,

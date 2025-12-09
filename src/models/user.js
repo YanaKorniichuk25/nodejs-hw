@@ -1,5 +1,5 @@
-const mongoose = require('mongoose');
-const bcrypt = require('bcrypt');
+import mongoose from 'mongoose';
+import bcrypt from 'bcrypt';
 
 const userSchema = new mongoose.Schema(
   {
@@ -17,9 +17,7 @@ userSchema.methods.toJSON = function () {
 };
 
 userSchema.pre('save', async function (next) {
-  if (!this.username) {
-    this.username = this.email;
-  }
+  if (!this.username) this.username = this.email;
 
   if (this.isModified('password')) {
     const salt = await bcrypt.genSalt(10);
@@ -29,4 +27,4 @@ userSchema.pre('save', async function (next) {
   next();
 });
 
-module.exports = mongoose.model('User', userSchema);
+export default mongoose.model('User', userSchema);

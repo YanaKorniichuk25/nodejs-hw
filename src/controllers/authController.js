@@ -16,12 +16,7 @@ export const registerUser = async (req, res, next) => {
     const session = await createSession(user._id);
     setSessionCookies(res, session);
 
-    const safeUser = {
-      _id: user._id,
-      email: user.email,
-    };
-
-    res.status(201).json(safeUser);
+    res.status(201).json(user.toJSON());
   } catch (err) {
     next(err);
   }
@@ -42,12 +37,7 @@ export const loginUser = async (req, res, next) => {
     const session = await createSession(user._id);
     setSessionCookies(res, session);
 
-    const safeUser = {
-      _id: user._id,
-      email: user.email,
-    };
-
-    res.status(200).json(safeUser);
+    res.status(200).json(user.toJSON());
   } catch (err) {
     next(err);
   }
@@ -56,6 +46,7 @@ export const loginUser = async (req, res, next) => {
 export const refreshUserSession = async (req, res, next) => {
   try {
     const { sessionId, refreshToken } = req.cookies || {};
+
     if (!sessionId || !refreshToken)
       throw createHttpError(401, 'Session not found');
 
@@ -79,9 +70,8 @@ export const refreshUserSession = async (req, res, next) => {
 export const logoutUser = async (req, res, next) => {
   try {
     const { sessionId } = req.cookies || {};
-    if (sessionId) {
-      await Session.deleteOne({ _id: sessionId });
-    }
+
+    if (sessionId) await Session.deleteOne({ _id: sessionId });
 
     res.clearCookie('sessionId');
     res.clearCookie('accessToken');

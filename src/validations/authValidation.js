@@ -1,13 +1,13 @@
-const { Joi, Segments } = require('celebrate');
+import { Joi, Segments } from 'celebrate';
 
-exports.registerUserSchema = {
+export const registerUserSchema = {
   [Segments.BODY]: Joi.object({
     email: Joi.string().email().required(),
     password: Joi.string().min(8).required(),
   }),
 };
 
-exports.loginUserSchema = {
+export const loginUserSchema = {
   [Segments.BODY]: Joi.object({
     email: Joi.string().email().required(),
     password: Joi.string().required(),
