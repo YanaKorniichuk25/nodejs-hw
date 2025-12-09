@@ -11,7 +11,6 @@ export const registerUser = async (req, res, next) => {
     const existing = await User.findOne({ email });
     if (existing) throw createHttpError(400, 'Email in use');
 
-    // Хешування через pre('save') у моделі User
     const user = await User.create({ email, password });
 
     const session = await createSession(user._id);

@@ -31,7 +31,6 @@ const start = async () => {
     app.use(express.json());
     app.use(cookieParser());
 
-    // роутери
     app.use('/api/auth', authRouter);
     app.use('/api/notes', notesRouter);
 
