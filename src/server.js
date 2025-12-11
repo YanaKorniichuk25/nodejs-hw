@@ -28,8 +28,10 @@ const start = async () => {
     app.use(authRouter);
     app.use(notesRouter);
 
-    app.use(celebrateErrors());
     app.use(notFoundHandler);
+
+    app.use(celebrateErrors());
+
     app.use(errorHandler);
 
     app.listen(PORT, () => console.log(`Server running on ${PORT}`));

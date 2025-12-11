@@ -1,9 +1,9 @@
-import { v4 as uuidv4 } from 'uuid';
+import { randomBytes } from 'crypto';
 import { Session } from '../models/session.js';
 import { FIFTEEN_MINUTES, ONE_DAY } from '../constants/time.js';
 
-function generateToken() {
-  return uuidv4();
+function generateToken(size = 48) {
+  return randomBytes(size).toString('hex');
 }
 
 export async function createSession(userId) {
@@ -30,10 +30,12 @@ export function setSessionCookies(res, session) {
     ...options,
     maxAge: FIFTEEN_MINUTES,
   });
+
   res.cookie('refreshToken', session.refreshToken, {
     ...options,
     maxAge: ONE_DAY,
   });
+
   res.cookie('sessionId', session._id.toString(), {
     ...options,
     maxAge: ONE_DAY,
