@@ -1,5 +1,5 @@
 import { v4 as uuidv4 } from 'uuid';
-import Session from '../models/session.js';
+import { Session } from '../models/session.js';
 import { FIFTEEN_MINUTES, ONE_DAY } from '../constants/time.js';
 
 function generateToken() {
