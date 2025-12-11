@@ -1,6 +1,6 @@
 import { Router } from 'express';
 import { celebrate } from 'celebrate';
-import authenticate from '../middleware/authenticate.js';
+import { authenticate } from '../middleware/authenticate.js';
 
 import {
   getAllNotes,
