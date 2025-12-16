@@ -7,6 +7,7 @@ import { errors as celebrateErrors } from 'celebrate';
 import { connectMongoDB } from './db/connectMongoDB.js';
 import authRouter from './routes/authRoutes.js';
 import notesRouter from './routes/notesRoutes.js';
+import userRouter from './routes/userRoutes.js';
 import logger from './middleware/logger.js';
 import { notFoundHandler } from './middleware/notFoundHandler.js';
 import { errorHandler } from './middleware/errorHandler.js';
@@ -27,14 +28,15 @@ const start = async () => {
 
     app.use(authRouter);
     app.use(notesRouter);
+    app.use(userRouter);
 
     app.use(notFoundHandler);
-
     app.use(celebrateErrors());
-
     app.use(errorHandler);
 
-    app.listen(PORT, () => console.log(`Server running on ${PORT}`));
+    app.listen(PORT, () => {
+      console.log(`Server running on ${PORT}`);
+    });
   } catch (err) {
     console.error(err);
     process.exit(1);
