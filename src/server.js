@@ -26,7 +26,8 @@ const start = async () => {
     app.use(express.json());
     app.use(cookieParser());
 
-    app.use(authRouter);
+    app.use('/auth', authRouter);
+
     app.use(notesRouter);
     app.use(userRouter);
 
