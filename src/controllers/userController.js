@@ -13,5 +13,5 @@ export const updateUserAvatar = async (req, res) => {
     avatar: result.secure_url,
   });
 
-  res.json({ url: result.secure_url });
+  res.status(200).json({ url: result.secure_url });
 };
